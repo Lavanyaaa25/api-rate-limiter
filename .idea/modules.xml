@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/abuse-analyzer-service/api-rate-limiter.abuse-analyzer-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/abuse-analyzer-service/api-rate-limiter.abuse-analyzer-service.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/abuse-analyzer-service/api-rate-limiter.abuse-analyzer-service.test.iml" filepath="$PROJECT_DIR$/.idea/modules/abuse-analyzer-service/api-rate-limiter.abuse-analyzer-service.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/api-gateway-service/api-rate-limiter.api-gateway-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/api-gateway-service/api-rate-limiter.api-gateway-service.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/api-gateway-service/api-rate-limiter.api-gateway-service.test.iml" filepath="$PROJECT_DIR$/.idea/modules/api-gateway-service/api-rate-limiter.api-gateway-service.test.iml" />
+    </modules>
+  </component>
+</project>

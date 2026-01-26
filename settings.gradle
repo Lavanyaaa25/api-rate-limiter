@@ -1,0 +1,11 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+    }
+}
+
+rootProject.name = 'api-rate-limiter'
+
+include('api-gateway-service')
+include('abuse-analyzer-service')

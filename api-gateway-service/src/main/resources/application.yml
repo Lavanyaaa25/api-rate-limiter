@@ -1,0 +1,7 @@
+server:
+  port: 8081
+
+rate-limit:
+  enabled: true
+  max-requests: 5
+  window-seconds: 10
