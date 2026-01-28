@@ -3,6 +3,7 @@ package com.example.apigateway.ratelimit;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
 import java.time.Instant;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -14,7 +15,7 @@ public class RateLimitService {
     private final ConcurrentHashMap<String, RateLimitCounter> counters =
             new ConcurrentHashMap<>();
 
-    public synchronized boolean isAllowed(String clientId) {
+    public synchronized RateLimitResult check(String clientId) {
         Instant now = Instant.now();
 
         RateLimitCounter counter = counters.computeIfAbsent(clientId, key -> {
@@ -30,6 +31,19 @@ public class RateLimitService {
         }
 
         counter.count++;
-        return counter.count <= rule.getMaxRequests();
+
+        int remaining = rule.getMaxRequests() - counter.count;
+        boolean allowed = remaining >= 0;
+
+        long resetSeconds =
+                rule.getWindow().minusSeconds(
+                        Duration.between(counter.windowStart, now).getSeconds()
+                ).getSeconds();
+
+        return new RateLimitResult(
+                allowed,
+                Math.max(remaining, 0),
+                Math.max(resetSeconds, 0)
+        );
     }
 }

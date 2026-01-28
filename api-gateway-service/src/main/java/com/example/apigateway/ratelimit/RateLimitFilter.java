@@ -13,6 +13,7 @@ import java.io.IOException;
 public class RateLimitFilter extends OncePerRequestFilter {
 
     private final RateLimitService rateLimitService;
+    private final RateLimitRule rateLimitRule;
 
     @Override
     protected void doFilterInternal(
@@ -23,7 +24,23 @@ public class RateLimitFilter extends OncePerRequestFilter {
 
         String clientId = request.getRemoteAddr();
 
-        if (!rateLimitService.isAllowed(clientId)) {
+        RateLimitResult result = rateLimitService.check(clientId);
+
+        // ---- Rate limit headers ----
+        response.setHeader(
+                "X-RateLimit-Limit",
+                String.valueOf(rateLimitRule.getMaxRequests())
+        );
+        response.setHeader(
+                "X-RateLimit-Remaining",
+                String.valueOf(result.getRemaining())
+        );
+        response.setHeader(
+                "X-RateLimit-Reset",
+                String.valueOf(result.getResetAfterSeconds())
+        );
+
+        if (!result.isAllowed()) {
             response.setStatus(429);
             response.getWriter().write("Too many requests");
             return;

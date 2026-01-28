@@ -8,6 +8,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class RateLimitProperties {
 
     private boolean enabled = true;
-    private int maxRequests;
-    private int windowSeconds;
+    private int maxRequests = 5;
+    private int windowSeconds = 10;
 }

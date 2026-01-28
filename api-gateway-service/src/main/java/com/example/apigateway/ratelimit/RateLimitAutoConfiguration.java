@@ -9,7 +9,12 @@ import java.time.Duration;
 
 @Configuration
 @EnableConfigurationProperties(RateLimitProperties.class)
-@ConditionalOnProperty(prefix = "rate-limit", name = "enabled", havingValue = "true")
+@ConditionalOnProperty(
+        prefix = "rate-limit",
+        name = "enabled",
+        havingValue = "true",
+        matchIfMissing = true
+)
 public class RateLimitAutoConfiguration {
 
     @Bean
@@ -26,7 +31,10 @@ public class RateLimitAutoConfiguration {
     }
 
     @Bean
-    public RateLimitFilter rateLimitFilter(RateLimitService service) {
-        return new RateLimitFilter(service);
+    public RateLimitFilter rateLimitFilter(
+            RateLimitService service,
+            RateLimitRule rule
+    ) {
+        return new RateLimitFilter(service, rule);
     }
 }
